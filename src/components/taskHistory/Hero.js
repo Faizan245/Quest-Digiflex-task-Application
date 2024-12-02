@@ -81,20 +81,22 @@ const Hero = () => {
         formData.append('taskId', taskId);
         documents.forEach((document) => {
             formData.append('files', document);
-          });
+        });
 
         console.log(formData)
     };
     return (
         <>
-            <h1 className='text-[32px] font-bold pl-[100px] pt-[5px]'>Task History</h1>
-            <div className='w-full h-full flex flex-wrap justify-center gap-10 px-[100px] pt-[20px] text-[18px]'>
+            <h1 className='text-[32px] max-lg:text-[24px] max-sm:text-[16px] font-bold pl-[100px] max-lg:pl-5 pt-[5px]'>Task History</h1>
+            <div className='w-full h-full flex flex-wrap justify-center gap-10 max-lg:gap-3 px-[20px] pt-[20px] text-[18px]'>
                 {tasks.map((task, index) => (
-                    <div key={index} className='w-[400px] shadow-lg rounded-[30px] flex flex-col gap-3 justify-center p-10'>
-                        <h1><span className='font-semibold'>Task Details :</span> {task.taskDetails}</h1>
-                        <h1><span className='font-semibold'>Employee Name :</span> {task.employeeName}</h1>
-                        <h1 className='tracking-tighter'><span className='font-semibold'>Employee ID :</span> {task.employeeId}</h1>
-                        <div className='flex gap-3'>
+                    <div key={index} className='w-[400px] max-lg:w-[350px] max-sm:w-[300px] shadow-lg rounded-[30px] flex justify-between items-center p-8 max-lg:p-4'>
+                        <div className='w-full max-lg:text-[14px]'>
+                            <h1><span className='font-semibold'>Task Details :</span> {task.taskDetails}</h1>
+                            <h1><span className='font-semibold'>Employee Name :</span> {task.employeeName}</h1>
+                            <h1 className='tracking-tighter'><span className='font-semibold'>Employee ID :</span> {task.employeeId}</h1>
+                        </div>
+                        <div className=''>
                             <button onClick={() => handleDetailsClick(task)} className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>detail</button>
                             {showPopUpDetail && (
                                 <div className='fixed w-full h-screen top-[0px] bottom-[0px] left-[0px] right-[0px] bg-black bg-opacity-20 flex justify-center items-center'>
@@ -133,10 +135,10 @@ const Hero = () => {
                                                     />
                                                 </label>
                                                 {uploadMessage && (
-                                                            <div className=" text-green-600">
-                                                                {uploadMessage}
-                                                            </div>
-                                                        )}
+                                                    <div className=" text-green-600">
+                                                        {uploadMessage}
+                                                    </div>
+                                                )}
                                             </div>
                                             <div className='flex gap-10 absolute bottom-[3%] font-semibold'>
                                                 <button onClick={handleSave} className='bg-custom-gradient rounded-lg py-[10px] px-[30px] text-[#fff] text-[20px]'>Save</button>
@@ -146,7 +148,7 @@ const Hero = () => {
                                     </div>
                                 </div>
                             )}
-                            <button className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>Chat</button>
+                            {/* <button className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>Chat</button> */}
                         </div>
                     </div>
                 ))}
