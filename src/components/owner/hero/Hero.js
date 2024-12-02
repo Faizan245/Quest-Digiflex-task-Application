@@ -389,7 +389,7 @@ function Hero() {
                 <h1 className='font-semibold text-[20px] max-md:text-[16px] pl-[50px] max-xl:pl-[150px] max-lg:pl-[50px] max-sm:pl-5 text-[#C2C3CC]'>Ongoing task</h1>
                 <div className='flex flex-wrap gap-[50px] max-md:gap-[40px] px-[100px] max-lg:px-[20px] gap-y-[50px] max-sm:gap-y-5 justify-center'>
                     {tasks.map((task, index) => (
-                        <div key={index} className="w-[400px] max-md:w-[320px] flex gap-5 rounded-[25px] max-xl:rounded-[20px] shadow-2xl p-[30px] max-xl:p-[20px]">
+                        <div key={index} className="w-[400px] border max-md:w-[320px] flex gap-5 rounded-[25px] max-xl:rounded-[20px] shadow-2xl p-[30px] max-xl:p-[20px]">
                             <div className='flex items-center gap-10 w-full justify-between'>
                                 <div>
                                     <h1 className='font-semibold text-[20px] max-xl:text-[18px] max-sm:text-[16px]'>{task.employeeName}</h1>
@@ -406,16 +406,16 @@ function Hero() {
 
             {showPopUpDetail && selectedTask && (
                 <div className='fixed w-full h-screen top-[0px] bottom-[0px] left-[0px] right-[0px] bg-black bg-opacity-20 flex justify-center items-center'>
-                    <div className='w-[450px] h-[650px] rounded-3xl bg-[#f0f0f0] relative'>
+                    <div className='w-[450px] max-sm:w-full h-[650px] rounded-3xl bg-[#f0f0f0] relative'>
                         <div onClick={handleClosetask} className='absolute top-[5%] right-[5%]'>
                             <RiCloseLargeLine className='text-[20px]' />
                         </div>
-                        <div className='w-full h-full flex flex-col items-center py-[50px]'>
+                        <div className='w-full h-full flex flex-col items-center py-[50px] px-5'>
                             <h1><span className='font-bold'>Employee Name : </span>{selectedTask.employeeName}</h1>
                             <h1><span className='font-bold'>Employee ID : </span>{selectedTask.employeeId}</h1>
                             <h1><span className='font-bold'>Task Details : </span>{selectedTask.taskDetails}</h1>
                             <h1><span className='font-bold'>Task Status : </span>{currentIndex === -1 ? selectedTask.status : statusStage[currentIndex]}</h1>
-                            <div className='flex flex-col px-[10px] h-[350px] overflow-scroll overflow-x-hidden'>
+                            <div className='flex flex-col px-[10px] h-[350px] max-sm:w-full max-sm:px-0 overflow-scroll overflow-x-hidden'>
                                 {Array.isArray(documents) && documents.length > 0 ? (
                                     documents.map((doc, index) => {
                                         // Extract the file name from the URL
@@ -440,11 +440,11 @@ function Hero() {
                             </label>
                             {uploadMessage && <div className="text-green-600">{uploadMessage}</div>}
                             <div className='flex gap-5 absolute bottom-[6%] font-semibold'>
-                                <button onClick={handleSave} className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px]'>Save</button>
-                                <button onClick={changeStatus} className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px]'>Change Status</button>
+                                <button onClick={handleSave} className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px] max-sm:text-[16px]'>Save</button>
+                                <button onClick={changeStatus} className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px] max-sm:text-[16px]'>Change Status</button>
                                 <button
                                     onClick={() => handleDelete(selectedTask.taskId)}
-                                    className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px]'
+                                    className='bg-custom-gradient rounded-lg py-1 px-3 text-[#fff] hover:text-black text-[20px] max-sm:text-[16px]'
                                     disabled={isDeleting}
                                 >
                                     {isDeleting ? 'Deleting...' : 'Delete'}

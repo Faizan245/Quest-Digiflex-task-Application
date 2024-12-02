@@ -9,12 +9,12 @@ const Hero = () => {
     return (
         <>
             <div className='flex justify-center pt-[150px]'>
-                <div className="flex justify-center items-center p-5 gap-20 shadow-2xl w-[600px] rounded-[40px]">
+                <div className="flex justify-center items-center p-5 gap-20 max-sm:gap-5 shadow-2xl w-[600px] max-sm:w-full rounded-[40px]">
                     <div className="">
                         <img
                             src={profile}
                             alt='profile'
-                            className="rounded-full w-[200px] h-[200px] object-cover"
+                            className="rounded-full w-[200px] h-[200px] max-sm:w-[100px] max-sm:h-[100px] object-cover"
                         />
                     </div>
                     <div className='flex flex-col gap-2'>

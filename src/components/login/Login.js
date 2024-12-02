@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/authSlice';
 import axios from 'axios';
+
 const api = process.env.REACT_APP_API_ENDPOINT;
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // State for login button status
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,11 +23,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set button to "Logging in.."
+    setIsLoading(true);
+    setError(''); // Clear any previous errors
+
+    // Basic validations before making API request
+    if (!email || !password) {
+      setError('Both email and password are required.');
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post(`${api}/login`, { email, password }, {
-        Headers: {
+        headers: {
           'Content-Type': 'application/json',
         },
       });
@@ -43,11 +52,30 @@ const Login = () => {
       } else if (data.userData.status === 'employee') {
         navigate('/employee');
       }
-    } catch (error) {
-      console.error(error);
-      setError('Error logging in');
+    } catch (err) {
+      console.error(err);
+
+      // Handling specific errors
+      if (err.response) {
+        // Server responded with a status other than 200 range
+        if (err.response.status === 401) {
+          setError('Invalid email or password. Please try again.');
+        } else if (err.response.status === 400) {
+          setError('Bad request. Please check your input.');
+        } else if (err.response.status === 500) {
+          setError('Server error. Please try again later.');
+        } else {
+          setError('An unexpected error occurred. Please try again.');
+        }
+      } else if (err.request) {
+        // No response received from the server
+        setError('Network error. Please check your connection.');
+      } else {
+        // Something happened in setting up the request
+        setError('An error occurred. Please try again.');
+      }
     } finally {
-      setIsLoading(false); // Set button back to "Login" after API call ends
+      setIsLoading(false);
     }
   };
 
@@ -89,7 +117,7 @@ const Login = () => {
         </div>
       </form>
       <p className='max-lg:text-[14px]'>By continuing you agree to our Terms & Privacy Policy</p>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
     </div>
   );
 };

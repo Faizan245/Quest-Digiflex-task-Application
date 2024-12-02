@@ -93,7 +93,7 @@ function Hero() {
     const handleSave = async () => {
 
         const formData = new FormData();
-        formData.append('status', newStatus);
+        formData.append('newStatus', newStatus);
         formData.append('taskId', taskId);
         documents.forEach((document) => {
             formData.append('files', document);
@@ -135,7 +135,7 @@ function Hero() {
             </div>
             <div className='w-full flex flex-col gap-5 pt-[20px] pb-[50px]'>
                 <h1 className='font-semibold text-[20px] max-lg:text-[18px] pl-[50px] max-md:pl-[0px] max-md:text-center'>New tasks</h1>
-                <h1 className='text-[20px] max-lg:text-[18px] pl-[100px] max-md:pl-[0px] max-md:text-center'>Task details</h1>
+                {/* <h1 className='text-[20px] max-lg:text-[18px] pl-[100px] max-md:pl-[0px] max-md:text-center'>Task details</h1> */}
                 <div className='flex flex-wrap gap-[50px] px-[40px] gap-y-[50px] max-xl:gap-[30px] justify-center'>
                     {(searchQuery ? filteredEmployees : tasks).map(task => (
                         <>
@@ -145,7 +145,7 @@ function Hero() {
                                         <h1 className='font-semibold text-[20px] max-lg:text-[16px]'>{task.taskDetails}</h1>
                                         <h3 className='text-[18px] max-lg:text-[16px] text-[#C2C3CC]'>Task ID : <span className='text-black font-light'>{task.taskId}</span></h3>
                                         <h3 className='text-[18px] max-lg:text-[16px] text-[#C2C3CC]'>Employee Name : <span className='text-black font-light'>{task.employeeName}</span></h3>
-                                        <div className='flex gap-3'>
+                                        <div className=''>
                                             <button onClick={() => handleDetailsClick(task)} className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>detail</button>
                                             {showPopUpDetail && (
                                                 <div className='fixed w-full h-screen top-[0px] bottom-[0px] left-[0px] right-[0px] bg-black bg-opacity-20 flex justify-center items-center'>
@@ -201,7 +201,7 @@ function Hero() {
                                                     </div>
                                                 </div>
                                             )}
-                                            <button className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>Chat</button>
+                                            {/* <button className='bg-custom-gradient px-[20px] py-[2px] text-[#fff] text-[14px] rounded-lg'>Chat</button> */}
                                         </div>
                                     </div>
 
