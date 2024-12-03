@@ -133,14 +133,14 @@ function Navbar() {
         <div className='sm:hidden flex items-center'>
           <button onClick={toggleMenu}>
             {isMenuOpen ? (
-              <MdClose className='text-[35px] text-[#C2C3CC] absolute top-20 right-20 z-[999]' />
+              <MdClose className='text-[35px] text-[#C2C3CC] fixed top-20 right-20 z-[999]' />
             ) : (
               <MdOutlineMenuOpen className='text-[35px] max-sm:w-[25px] text-[#C2C3CC]' />
             )}
           </button>
         </div>
         {isMenuOpen && (
-          <div className='sm:hidden overflow:hidden w-full absolute top-0 left-0 flex flex-col items-center justify-center z-5 gap-5 text-[#175574] text-[16px] font-semibold bg-white w-full h-screen rounded-lg'>
+          <div className='sm:hidden overflow:hidden w-full fixed top-0 left-0 flex flex-col items-center justify-center z-99999999 gap-5 text-[#175574] text-[16px] font-semibold bg-white w-full h-screen rounded-lg'>
             <Link to={linkTo} onClick={toggleMenu}>Home</Link>
             <Link to="/task-history" onClick={toggleMenu}>History</Link>
             <Link to="/profile" onClick={toggleMenu}>Profile</Link>

@@ -244,6 +244,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Register from '../../create-employee/Register';
 import { RiCloseLargeLine } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
 
 function Hero() {
@@ -257,6 +258,7 @@ function Hero() {
     const [refreshTasks, setRefreshTasks] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const api = process.env.REACT_APP_API_ENDPOINT;
+    const [searchQuery, setSearchQuery] = useState('');
 
     const statusStage = ["Beginning", "Under Work", "Done"];
     const [currentIndex, setCurrentIndex] = useState(-1);
@@ -274,6 +276,12 @@ function Hero() {
         fetchTasks();
         setRefreshTasks(false);
     }, [refreshTasks, api]);
+
+    const filteredEmployees = tasks.filter(task =>
+        task.employeeName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.taskDetails.toLowerCase().includes(searchQuery.toLowerCase())
+
+    );
 
     const handleDocClick = (url) => {
         window.open(url, '_blank'); // Open the document in a new tab
@@ -363,8 +371,18 @@ function Hero() {
     return (
         <>
             <div className='w-full h-full flex flex-col items-center'>
-                <div className='w-[80%] max-sm:w-[95%] h-[70px] max-lg:h-[50px] mt-[15px] bg-custom-gradient rounded-2xl pl-[50px] max-sm:pl-5 flex items-center'>
+                {/* <div className='w-[80%] max-sm:w-[95%] h-[70px] max-lg:h-[50px] mt-[15px] bg-custom-gradient rounded-2xl pl-[50px] max-sm:pl-5 flex items-center'>
                     <h1 className='text-[#fff] text-[24px] max-lg:text-[20px] font-bold'>Tasks</h1>
+                </div> */}
+                <div className='w-[50%] max-sm:w-[90%] flex items-center pt-5 z-[-1] relative'>
+                    <input
+                        type='text'
+                        placeholder='Search : "Employee Name" or "Task"'
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className='w-full py-[10px] max-lg:text-[14px] pl-[30px] max-md:pl-[10px] border border-[#FAC8A2] rounded-2xl'
+                    />
+                    <FaSearch className='text-[22px] max-lg:text-[18px] text-[#F59245] absolute right-[0px] mr-[30px] max-md:mr-[10px]' />
                 </div>
                 <div className='flex gap-10 max-lg:gap-5'>
                     <div onClick={handleCreateEmpClick} className='py-[10px] max-lg:py-[5px] px-[30px] max-lg:px-[15px] text-[#fff] mt-[10px] bg-custom-gradient rounded-2xl max-lg:rounded-xl flex items-center justify-center'>
@@ -388,7 +406,7 @@ function Hero() {
             <div className='w-full flex flex-col gap-5 pt-[20px] pb-[50px]'>
                 <h1 className='font-semibold text-[20px] max-md:text-[16px] pl-[50px] max-xl:pl-[150px] max-lg:pl-[50px] max-sm:pl-5 text-[#C2C3CC]'>Ongoing task</h1>
                 <div className='flex flex-wrap gap-[50px] max-md:gap-[40px] px-[100px] max-lg:px-[20px] gap-y-[50px] max-sm:gap-y-5 justify-center'>
-                    {tasks.map((task, index) => (
+                {(searchQuery ? filteredEmployees : tasks).map((task, index) => (
                         <div key={index} className="w-[400px] border max-md:w-[320px] flex gap-5 rounded-[25px] max-xl:rounded-[20px] shadow-2xl p-[30px] max-xl:p-[20px]">
                             <div className='flex items-center gap-10 w-full justify-between'>
                                 <div>

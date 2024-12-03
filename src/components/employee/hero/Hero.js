@@ -118,11 +118,11 @@ function Hero() {
     };
     return (
         <>
-            <div className='w-full h-full flex flex-col gap-5 items-center'>
-                <div className='w-[80%] h-[70px] max-lg:h-[50px] mt-[15px] bg-custom-gradient rounded-2xl pl-[50px] flex items-center'>
-                    <h1 className='text-[#fff] text-[24px] max-lg:text-[20px] font-bold'>Tasks</h1>
+            <div className='w-full h-full flex flex-col gap-5 max-sm:gap-2  items-center'>
+                <div className='w-[80%] max-sm:w-[90%] h-[70px] max-lg:h-[50px] mt-[15px] bg-custom-gradient rounded-2xl pl-[50px] max-sm:pl-5 flex items-center'>
+                    <h1 className='text-[#fff] text-[24px] max-sm:text-[18px] max-lg:text-[20px] font-bold'>Tasks</h1>
                 </div>
-                <div className='w-[50%] flex items-center relative'>
+                <div className='w-[50%] max-sm:w-[90%] flex items-center z-[-1] relative'>
                     <input
                         type='text'
                         placeholder='Search : "Employee Name" or "Task"'
@@ -133,15 +133,15 @@ function Hero() {
                     <FaSearch className='text-[22px] max-lg:text-[18px] text-[#F59245] absolute right-[0px] mr-[30px] max-md:mr-[10px]' />
                 </div>
             </div>
-            <div className='w-full flex flex-col gap-5 pt-[20px] pb-[50px]'>
+            <div className='w-full flex flex-col gap-5 pt-[20px] pb-[50px] max-sm:pt-2 max-sm:pb-0'>
                 <h1 className='font-semibold text-[20px] max-lg:text-[18px] pl-[50px] max-md:pl-[0px] max-md:text-center'>New tasks</h1>
                 {/* <h1 className='text-[20px] max-lg:text-[18px] pl-[100px] max-md:pl-[0px] max-md:text-center'>Task details</h1> */}
-                <div className='flex flex-wrap gap-[50px] px-[40px] gap-y-[50px] max-xl:gap-[30px] justify-center'>
+                <div className='flex flex-wrap gap-[50px]  px-[40px] gap-y-[50px] max-xl:gap-[30px] max-sm:gap-3 justify-center'>
                     {(searchQuery ? filteredEmployees : tasks).map(task => (
                         <>
                             <div key={task.employeeId} className="rounded-[40px] shadow-2xl">
                                 <div className='flex flex-col gap-5 p-[20px] pb-[10px]'>
-                                    <div className='w-[350px] max-xl:w-[250px] flex flex-col gap-2 max-md:w-[200px]'>
+                                    <div className='w-[350px] max-xl:w-[250px] max-sm:w-[300px] flex flex-col gap-2 max-md:w-[200px]'>
                                         <h1 className='font-semibold text-[20px] max-lg:text-[16px]'>{task.taskDetails}</h1>
                                         <h3 className='text-[18px] max-lg:text-[16px] text-[#C2C3CC]'>Task ID : <span className='text-black font-light'>{task.taskId}</span></h3>
                                         <h3 className='text-[18px] max-lg:text-[16px] text-[#C2C3CC]'>Employee Name : <span className='text-black font-light'>{task.employeeName}</span></h3>
