@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { RiCloseLargeLine } from "react-icons/ri";
+import { useSelector } from 'react-redux';
 const Hero = () => {
     const [tasks, setTasks] = useState([])
 
@@ -18,19 +19,32 @@ const Hero = () => {
     const api = process.env.REACT_APP_API_ENDPOINT;
 
     
-
+    const userStatus = useSelector((state) => state.auth.user.status);
+    const userId = useSelector((state) => state.auth.user.userId);
     useEffect(() => {
         const fetchTasks = async () => {
             try {
                 const response = await axios.get(`${api}/taskHistory`);
-                setTasks(response.data.taskHistory);
+                if (response.status === 200) {
+                    const taskHistory = response.data.taskHistory;
+    
+                    if (userStatus === 'owner') {
+                        // If the status is 'owner', add all tasks
+                        setTasks(taskHistory);
+                    } else if (userStatus === 'employee') {
+                        // If the status is 'employee', filter tasks by employeeId
+                        const filteredTasks = taskHistory.filter(task => task.employeeId === userId);
+                        setTasks(filteredTasks);
+                    }
+                }
             } catch (error) {
                 console.error('Error fetching tasks:', error);
             }
         };
-
+    
         fetchTasks();
-    }, [api]);
+    }, [api, userStatus, userId]);
+    
 
     const handleClosetask = () => {
         setStatus('')

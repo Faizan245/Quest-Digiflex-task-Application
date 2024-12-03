@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import { RiCloseLargeLine } from "react-icons/ri";
 
+
 import axios from 'axios';
 
 function Hero() {
@@ -72,8 +73,9 @@ function Hero() {
         setTaskDetails(task.taskDetails);
         setStatus(task.status);
         setNewStatus(task.status);
-        setTaskId(task.id)
+        setTaskId(task.taskId)
         setDocuments(Array.isArray(task.documentURLs) ? task.documentURLs : []);
+        console.log(task.taskId)
     }
 
 
@@ -100,9 +102,11 @@ function Hero() {
         });
 
         try {
-            const response = await axios.post(`${api}/updateTask`, formData, {
-                'Content-Type': 'multipart/form-data'
-            });
+            console.log('FormData contents:');
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+            const response = await axios.post(`${api}/updateTask`, formData);
 
             if (response.status === 200) {
                 console.log('Task updated successfully:', response.data);
